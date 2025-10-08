@@ -4,7 +4,7 @@
 ```
 部署文档：http://103.40.14.228:38603/
 ```
-##群聊码（过期留言）
+## 群聊码（过期留言）
 <img src="https://github.com/user-attachments/assets/1eae27d2-b27b-439c-adf1-54975423ffc3" align="left" width=400 />
 
 
