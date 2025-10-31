@@ -5,7 +5,7 @@
 部署文档：http://103.40.14.228:38603/
 ```
 ## 群聊码（过期留言）
-<img src="https://github.com/user-attachments/assets/ca51642f-af99-48b5-94a5-9501a210b8f3" align="left" width=400 />
+<img src="https://github.com/user-attachments/assets/4ddc5020-e291-4265-bfba-79735bdbbf2e" align="left" width=400 />
 
 
 ## 系统展示图
