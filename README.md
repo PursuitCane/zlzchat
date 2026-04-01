@@ -1,7 +1,7 @@
 # zlzchat-rss 公众号快速订阅系统
 
 ## 
-部署文档：https://doc.zlzchat.top
+部署文档：http://111.229.83.152:805
 
 2026-01-05更换域名访问
 部署方式中参数改为 API_SERVER: "http://103.40.14.228:18449"  改为 https://server.zlzchat.top
