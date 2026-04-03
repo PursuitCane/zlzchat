@@ -104,6 +104,27 @@
             </span>
             </el-dialog>
 
+
+         <el-dialog
+                 title="历史同步"
+                 :visible.sync="hisDialog"
+                 width="30%">
+             <el-radio v-model="hisType" label="1">全部拉取（由数据库存储最后拉取页）</el-radio>
+             <el-radio v-model="hisType" label="2">自定义</el-radio>
+             <br/>
+             <div v-if="hisType==2">
+                 开始页
+                 <el-input-number v-model="startNum" :min="0" :step="20" step-strictly  label="开始数字（代表开始页数只能是20的倍数）"></el-input-number>
+                 结束页
+                 <el-input-number v-model="endNum"  :min="0" :step="20"  step-strictly label="结束数字（代表结束页数只能是20的倍数）"></el-input-number>
+             </div>
+
+             <span slot="footer" class="dialog-footer">
+            <el-button @click="hisDialog = false">取 消</el-button>
+            <el-button type="primary" @click="hisUpdate()">确 定</el-button>
+            </span>
+         </el-dialog>
+
          <el-dialog
                  title="公众号链接添加"
                  :visible.sync="searchLinkDialog"
@@ -260,6 +281,11 @@
                     linkUrl:"",
                     feedName:"",
                     selectedId: null,
+                    hisDialog:false,
+                    hisType:"1",
+                    wxsId:"",
+                    startNum:0,
+                    endNum:20,
                     feeds: []
                 }
             },
@@ -352,26 +378,28 @@
                 },
                 getFeedArticle(wxsId){
                     let that=this;
-                    const loading =  that.$loading({
-                        lock: true,
-                        text: '正在请求同步，请稍候...',
-                        spinner: 'el-icon-loading',
-                        background: 'rgba(0, 0, 0, 0.7)'
-                    });
-                    $.ajax({
-                        url: "/admin/cms/mparticles/getFeedArticle/"+wxsId,
-                        type: 'post',
-                        dataType: "json",
-                        success: function(result) {
-                               loading.close();
-                               if(result.code==0){
-                                   $.modal.msgSuccess(result.msg)
-                               }else{
-                                   $.modal.msgError(result.msg)
-                               }
-
-                        }
-                    })
+                    that.wxsId=wxsId;
+                    that.hisDialog=true;
+                    // const loading =  that.$loading({
+                    //     lock: true,
+                    //     text: '正在请求同步，请稍候...',
+                    //     spinner: 'el-icon-loading',
+                    //     background: 'rgba(0, 0, 0, 0.7)'
+                    // });
+                    // $.ajax({
+                    //     url: "/admin/cms/mparticles/getFeedArticle/"+wxsId,
+                    //     type: 'post',
+                    //     dataType: "json",
+                    //     success: function(result) {
+                    //            loading.close();
+                    //            if(result.code==0){
+                    //                $.modal.msgSuccess(result.msg)
+                    //            }else{
+                    //                $.modal.msgError(result.msg)
+                    //            }
+                    //
+                    //     }
+                    // })
                 },
                 getFeedArticleNew(wxsId){
                     let that=this;
@@ -415,6 +443,31 @@
                             }else{
                                 $.modal.msgError(result.msg)
                             }
+
+                        }
+                    })
+                },
+                hisUpdate(){
+                    let that=this;
+                    const loading =  that.$loading({
+                        lock: true,
+                        text: '正在请求同步，请稍候...',
+                        spinner: 'el-icon-loading',
+                        background: 'rgba(0, 0, 0, 0.7)'
+                    });
+                    that.hisDialog=false;
+                    $.ajax({
+                        url: "/admin/cms/mparticles/getFeedArticle/"+that.wxsId,
+                        type: 'post',
+                        dataType: "json",
+                        data: { "startNum": that.startNum,"endNum": that.endNum,"hisType":that.hisType },
+                        success: function(result) {
+                               loading.close();
+                               if(result.code==0){
+                                   $.modal.msgSuccess(result.msg)
+                               }else{
+                                   $.modal.msgError(result.msg)
+                               }
 
                         }
                     })

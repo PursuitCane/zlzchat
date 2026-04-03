@@ -231,6 +231,7 @@
                             // actions.push('<a class="btn btn-xs el-primary-text ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.articlesId + '\')"><i class="fa fa-pencil"></i> 编辑</a> ');
                             // actions.push('<a class="btn btn-xs el-primary-text ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.articlesId + '\')"><i class="fa fa-trash-o"></i> 删除</a>');
                             actions.push('<a class="btn el-primary-text btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="goUrl(\'' + row.originalId + '\',\'' + row.articlesId + '\')"> 查看</a> ');
+                            actions.push('<a class="btn el-primary-text btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="goLxUrl(\'' + row.articlesId + '\')"> 本地查看</a> ');
                             actions.push('<a class="btn el-primary-text btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="goCont(\'' + row.articlesId + '\')"> 获取正文</a> ');
                             return actions.join('');
                         }
@@ -252,6 +253,10 @@
                 }
             });
             window.open("https://mp.weixin.qq.com/s/"+originalId, '_blank');
+
+        }
+        function goLxUrl(articleId){
+            window.open('/admin/cms/mparticles/wxArticle/'+articleId, '_blank');
 
         }
         function goCont(articleId){
