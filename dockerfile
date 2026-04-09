@@ -1,0 +1,6 @@
+FROM docker.m.daocloud.io/eclipse-temurin:8-jre
+#FROM crpi-ah24egza1axyf372.cn-hangzhou.personal.cr.aliyuncs.com/jdagent/eclipse-temurin:8-jre
+RUN mkdir -p /www/wwwroot/zlzchat
+WORKDIR /www/wwwroot/zlzchat
+COPY . .
+CMD ["sh", "-c", "java -Duser.timezone=GMT+08 -Xms1024m -Xmx2048m -Dlogging.config=/www/wwwroot/zlzchat/resources/logback.xml -jar /www/wwwroot/zlzchat/website.jar"]
